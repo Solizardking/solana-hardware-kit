@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Solana Gadget Kit</title>
+<style>
+  :root { color-scheme: dark; --ink: #e7f6ef; --dim: #8aa899; --line: #1c3b32; --face: #07140f; }
+  body { margin: 0; min-height: 100vh; background: #030806; color: var(--ink);
+    font: 16px/1.45 "Iowan Old Style", Palatino, Georgia, serif; }
+  main { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
+  h1 { font-weight: 500; letter-spacing: -0.03em; font-size: 2rem; margin: 0 0 8px; }
+  p { color: var(--dim); max-width: 62ch; }
+  a { color: #b7f0c8; }
+  .stage { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; margin-top: 28px; }
+  .lcd { width: 240px; height: 240px; border-radius: 50%; background:
+    radial-gradient(circle at 50% 42%, #123528 0%, var(--face) 62%, #020504 100%);
+    border: 10px solid #0c1c16; box-shadow: 0 0 0 1px #245445, inset 0 0 40px #000;
+    display: flex; flex-direction: column; align-items: center; justify-content: center;
+    text-align: center; padding: 28px; box-sizing: border-box; }
+  .lcd strong { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 13px; letter-spacing: 0.14em; }
+  .lcd span { margin-top: 10px; font-size: 15px; }
+  .lcd.expired strong, .lcd.cancelled strong { color: #f0c1a2; }
+  button { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 999px;
+    padding: 8px 14px; margin: 0 8px 8px 0; font: inherit; cursor: pointer; }
+  button[aria-pressed="true"] { border-color: #8ddec0; color: #d9ffe9; }
+  ul { padding-left: 18px; color: var(--dim); }
+</style>
+</head>
+<body>
+<main>
+  <h1>Solana Gadget Kit</h1>
+  <p>240×240 round LCD for <a href="https://github.com/themusebook/solana-gadget-kit">github.com/themusebook/solana-gadget-kit</a>.
+  The on-device hardware wallet signs only after a physical confirm. Pocket Wallet stays the phone-approval path and cannot sign or submit.
+  Robotics motion is applied only for a matching Solana confirmation.</p>
+  <div class="stage">
+    <div id="lcd" class="lcd" role="img" aria-label="240 by 240 home">
+      <strong id="headline">HOME</strong>
+      <span id="detail">Solana gadget</span>
+    </div>
+    <div>
+      <button type="button" data-screen="home" aria-pressed="true">Home</button>
+      <button type="button" data-screen="review">Review</button>
+      <button type="button" data-screen="expired">Expired</button>
+      <button type="button" data-screen="cancelled">Cancelled</button>
+      <ul>
+        <li>Home is idle. No command is bound.</li>
+        <li>Review shows the exact payload before a signature exists.</li>
+        <li>Expired and cancelled refuse the robotics actuator.</li>
+      </ul>
+    </div>
+  </div>
+</main>
+<script>
+const frames = {
+  home: ["HOME", "Solana gadget", "240 by 240 home"],
+  review: ["REVIEW", "transfer 0.01 SOL", "240 by 240 review transfer 0.01 SOL"],
+  expired: ["EXPIRED", "window closed", "240 by 240 expired"],
+  cancelled: ["CANCELLED", "command dropped", "240 by 240 cancelled"]
+};
+const lcd = document.getElementById("lcd");
+const headline = document.getElementById("headline");
+const detail = document.getElementById("detail");
+document.querySelectorAll("button[data-screen]").forEach((button) => {
+  button.addEventListener("click", () => {
+    const frame = frames[button.dataset.screen];
+    headline.textContent = frame[0];
+    detail.textContent = frame[1];
+    lcd.className = "lcd " + button.dataset.screen;
+    lcd.setAttribute("aria-label", frame[2]);
+    document.querySelectorAll("button[data-screen]").forEach((other) => {
+      other.setAttribute("aria-pressed", other === button ? "true" : "false");
+    });
+  });
+});
+</script>
+</body>
+</html>
