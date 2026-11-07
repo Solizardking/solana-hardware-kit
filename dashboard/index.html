@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="description" content="The premiere official open-source home of all Solana gadgets and hardware. Host programs, the 240×240 review surface, Solana OS, the web flasher, community device skills, Pocket Wallet, and the project documents.">
+<meta name="description" content="The premiere official open-source home of all Solana gadgets and hardware. Host programs, ESP32 and Linux SDKs, Android and iPhone test apps, Solana OS firmware, the web flasher, community device skills, and Pocket Wallet.">
 <title>Solana Gadget Kit — the premiere open-source home of Solana gadgets and hardware</title>
 <style>
   :root {
@@ -159,10 +159,11 @@
   <header>
     <p class="kicker">Solana Gadget Kit</p>
     <h1>The premiere official open-source home of all Solana gadgets and hardware.</h1>
-    <p>Host programs you can run on a computer, the 240×240 round review surface, Solana OS 0.4.4 for the BP26 badge, the <a href="../../scripts/flash-solana-os.sh">badge flash script</a>, the <a href="../../web-flasher/index.html">browser flasher</a>, the <a href="../../skills/CATALOG.md">community device skills</a>, and <a href="../../pocket-wallet/README.md">Pocket Wallet</a> in full. The kit documents live in the <a href="../../README.md">root README</a>. Source: <a href="https://github.com/themusebook/solana-gadget-kit">github.com/themusebook/solana-gadget-kit</a>.</p>
+    <p>Host programs you can run on a computer, the 240×240 round review surface, the <a href="../../esp32/README.md">ESP32</a> and <a href="../../linux/README.md">Linux</a> device SDKs, the <a href="../../android/musegadgetstest/README.md">Android</a> and <a href="../../ios/musegadgetstest/README.md">iPhone</a> test apps, Solana OS 0.4.4 for the BP26 badge, the <a href="../../scripts/flash-solana-os.sh">badge flash script</a>, the <a href="../../web-flasher/index.html">browser flasher</a>, the <a href="../../skills/CATALOG.md">community device skills</a>, and <a href="../../pocket-wallet/README.md">Pocket Wallet</a> in full. The kit documents live in the <a href="../../README.md">root README</a>. Source: <a href="https://github.com/themusebook/solana-gadget-kit">github.com/themusebook/solana-gadget-kit</a>.</p>
     <nav class="jumps" aria-label="On this page">
       <a href="#screen">Review surface</a>
       <a href="#gadgets">Gadgets</a>
+      <a href="#sdks">SDKs</a>
       <a href="#scripts">Scripts</a>
       <a href="#web-flasher">Web flasher</a>
       <a href="#skills">Skills</a>
@@ -219,9 +220,45 @@
       </article>
       <article class="card">
         <h3>Solana BP26 badge</h3>
-        <p>Prebuilt Solana OS 0.4.4 for the ESP32-C5 badge. Flash it with <a href="../../scripts/flash-solana-os.sh"><code>scripts/flash-solana-os.sh</code></a> after the checksum check.</p>
+        <p>Prebuilt Solana OS 0.4.4 for the ESP32-C5 badge, in <a href="../../firmware/solana-os/0.4.4/README.txt"><code>firmware/solana-os/0.4.4</code></a>. Flash it with <a href="../../scripts/flash-solana-os.sh"><code>scripts/flash-solana-os.sh</code></a> after the checksum check. Notes: <a href="../../docs/solana-os.md">docs/solana-os.md</a>.</p>
       </article>
     </div>
+  </section>
+
+  <section id="sdks" aria-labelledby="sdks-title">
+    <h2 id="sdks-title">SDKs, phone apps, and badge firmware</h2>
+    <p class="lede">The device SDKs and the prebuilt Solana OS images. Flashing custom firmware can brick a board. The phone apps are samples. They do not hold a wallet key.</p>
+    <table>
+      <thead>
+        <tr><th>Path</th><th>What is included</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="path"><a href="../../android/musegadgetstest/README.md">android/</a></td>
+          <td>Muse Gadgets Test. Plain Java. Streams the camera, color bars, or a sample clip to a gadget display over Wi-Fi. Open <code>android/musegadgetstest</code> in Android Studio, or use <code>./gradlew installDebug</code>. <a href="../../android/musegadgetstest/tools/livebench/README.md">livebench</a> measures that live path.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../ios/musegadgetstest/README.md">ios/</a></td>
+          <td>The iPhone app of the same test. Swift, plus a little C in <code>native/</code>. Xcode 16 or later, iOS 17 or later. Open <code>ios/musegadgetstest/MuseGadgetsTest.xcodeproj</code>.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../esp32/README.md">esp32/</a></td>
+          <td>ESP32 Device SDK. Firmware that joins Wi-Fi and pairs with the Muse app. Board overlays are in <a href="../../esp32/devices/README.md">esp32/devices</a>. The desktop UI preview is in <a href="../../esp32/simulator/README.md">esp32/simulator</a>. Build steps live in <a href="../../esp32/AGENTS.md">esp32/AGENTS.md</a>.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../linux/README.md">linux/</a></td>
+          <td>Linux Device SDK. Turns a Raspberry Pi, or another Linux machine with Bluetooth LE, into a Muse gadget. The installer is <a href="../../linux/install.sh">linux/install.sh</a>. Extra notes: <a href="../../linux/docs/fedora.md">Fedora</a> and <a href="../../linux/docs/rdk-x5.md">RDK-X5</a>. Build steps live in <a href="../../linux/AGENTS.md">linux/AGENTS.md</a>.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../firmware/solana-os/0.4.4/README.txt">firmware/</a></td>
+          <td>Prebuilt Solana OS 0.4.4 for the BP26 badge: <code>bootloader.bin</code>, <code>partition-table.bin</code>, <code>ota_data_initial.bin</code>, and <code>solana_os.bin</code>. Check <a href="../../firmware/solana-os/0.4.4/SHA256SUMS">SHA256SUMS</a> before flashing. Offsets are in <a href="../../firmware/solana-os/0.4.4/flash_args">flash_args</a>. The browser manifest is <a href="../../firmware/solana-os/0.4.4/manifest.json">manifest.json</a>.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../docs/solana-os.md">docs/</a></td>
+          <td>How to flash that bundle from a terminal: port names, 460800 baud, and what <code>--erase-settings</code> and <code>--erase-all</code> clear.</td>
+        </tr>
+      </tbody>
+    </table>
   </section>
 
   <section id="scripts" aria-labelledby="scripts-title">

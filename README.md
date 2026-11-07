@@ -27,6 +27,16 @@ OS 0.4.4 onto a BP26 badge after checking `SHA256SUMS`.
 [`../skills`](../skills/CATALOG.md) is the community device catalog: 44
 Markdown skills. Those skills are not official Muse product integrations.
 
+The device trees sit beside this directory.
+[`../esp32`](../esp32/README.md) is the ESP32 Device SDK.
+[`../linux`](../linux/README.md) is the Linux Device SDK.
+[`../android/musegadgetstest`](../android/musegadgetstest/README.md) and
+[`../ios/musegadgetstest`](../ios/musegadgetstest/README.md) are the phone
+test apps that stream video to a gadget display.
+[`../firmware/solana-os/0.4.4`](../firmware/solana-os/0.4.4/README.txt) holds
+the prebuilt BP26 images, and [`../docs/solana-os.md`](../docs/solana-os.md)
+is the flash note.
+
 [`../web-flasher`](../web-flasher/README.md) is the browser installer:
 `index.html`, `boards.json`, `flasher-hooks.js`, `paced-serial.js`,
 `sdk-token.js`, and `make_manifest.py`. The root documents are
