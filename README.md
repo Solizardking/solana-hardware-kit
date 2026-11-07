@@ -1,9 +1,9 @@
 # Solana examples
 
-The premiere official open-source home of all Solana gadgets and hardware is the
-[dashboard](dashboard/index.html), for the Solana Gadget Kit
-(`github.com/themusebook/solana-gadget-kit`). These host programs do not flash
-a board, open a network connection, or read a provider key.
+The public home is [hardware.musebook.trade](https://hardware.musebook.trade).
+Source is [github.com/themusebook/solana-gadget-kit](https://github.com/themusebook/solana-gadget-kit).
+The offline 240×240 review page is [dashboard/index.html](dashboard/index.html).
+These host programs do not flash a board, open a network connection, or read a provider key.
 
 The ESP32 starting point is the Muse round-LCD gadget SDK. These programs are
 the part you can run on a computer:
@@ -21,6 +21,19 @@ as the phone-approval gadget. Its physical press moves the screen to phone
 review and cannot sign or submit. The home lists every included surface: web,
 API, firmware, Linux companion, Cloudflare proxy, scripts, docs, CI, and the
 container files.
+
+[`../scripts/flash-solana-os.sh`](../scripts/flash-solana-os.sh) flashes Solana
+OS 0.4.4 onto a BP26 badge after checking `SHA256SUMS`.
+[`../skills`](../skills/CATALOG.md) is the community device catalog: 44
+Markdown skills. Those skills are not official Muse product integrations.
+
+[`../web-flasher`](../web-flasher/README.md) is the browser installer:
+`index.html`, `boards.json`, `flasher-hooks.js`, `paced-serial.js`,
+`sdk-token.js`, and `make_manifest.py`. The root documents are
+[`../README.md`](../README.md), [`../LICENSE`](../LICENSE),
+[`../CONTRIBUTING.md`](../CONTRIBUTING.md),
+[`../CODE_OF_CONDUCT.md`](../CODE_OF_CONDUCT.md), and
+[`../.gitignore`](../.gitignore).
 
 ## Build and run
 
