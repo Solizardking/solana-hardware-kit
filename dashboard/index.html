@@ -3,53 +3,300 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Solana Gadget Kit</title>
+<meta name="description" content="The premiere official open-source home of all Solana gadgets and hardware. Host programs, the 240×240 review surface, Solana OS for the BP26 badge, and Pocket Wallet.">
+<title>Solana Gadget Kit — the premiere open-source home of Solana gadgets and hardware</title>
 <style>
-  :root { color-scheme: dark; --ink: #e7f6ef; --dim: #8aa899; --line: #1c3b32; --face: #07140f; }
-  body { margin: 0; min-height: 100vh; background: #030806; color: var(--ink);
-    font: 16px/1.45 "Iowan Old Style", Palatino, Georgia, serif; }
-  main { max-width: 880px; margin: 0 auto; padding: 32px 20px 64px; }
-  h1 { font-weight: 500; letter-spacing: -0.03em; font-size: 2rem; margin: 0 0 8px; }
-  p { color: var(--dim); max-width: 62ch; }
-  a { color: #b7f0c8; }
-  .stage { display: flex; gap: 28px; align-items: center; flex-wrap: wrap; margin-top: 28px; }
-  .lcd { width: 240px; height: 240px; border-radius: 50%; background:
-    radial-gradient(circle at 50% 42%, #123528 0%, var(--face) 62%, #020504 100%);
-    border: 10px solid #0c1c16; box-shadow: 0 0 0 1px #245445, inset 0 0 40px #000;
-    display: flex; flex-direction: column; align-items: center; justify-content: center;
-    text-align: center; padding: 28px; box-sizing: border-box; }
-  .lcd strong { font-family: ui-monospace, "SFMono-Regular", Menlo, monospace; font-size: 13px; letter-spacing: 0.14em; }
-  .lcd span { margin-top: 10px; font-size: 15px; }
-  .lcd.expired strong, .lcd.cancelled strong { color: #f0c1a2; }
-  button { background: transparent; color: var(--ink); border: 1px solid var(--line); border-radius: 999px;
-    padding: 8px 14px; margin: 0 8px 8px 0; font: inherit; cursor: pointer; }
+  :root {
+    color-scheme: dark;
+    --ink: #e7f6ef;
+    --dim: #8aa899;
+    --line: #1c3b32;
+    --face: #07140f;
+    --paper: #030806;
+    --mint: #b7f0c8;
+    --coral: #f0c1a2;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    min-height: 100vh;
+    background: var(--paper);
+    color: var(--ink);
+    font: 16px/1.5 "Iowan Old Style", Palatino, Georgia, serif;
+  }
+  a { color: var(--mint); }
+  main { max-width: 980px; margin: 0 auto; padding: 28px 20px 80px; }
+  header { max-width: 68ch; }
+  .kicker {
+    margin: 0 0 10px;
+    font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+    font-size: 12px;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: var(--mint);
+  }
+  h1 {
+    margin: 0 0 12px;
+    font-weight: 500;
+    letter-spacing: -0.03em;
+    font-size: clamp(1.8rem, 4vw, 2.6rem);
+    line-height: 1.15;
+  }
+  h2 {
+    margin: 0 0 8px;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-size: 1.45rem;
+  }
+  p { color: var(--dim); }
+  header p { max-width: 68ch; }
+  nav.jumps { display: flex; flex-wrap: wrap; gap: 8px 16px; margin: 18px 0 0; }
+  nav.jumps a { font-family: ui-monospace, Menlo, monospace; font-size: 13px; }
+  .stage {
+    display: flex;
+    gap: 28px;
+    align-items: center;
+    flex-wrap: wrap;
+    margin-top: 28px;
+    padding-top: 8px;
+  }
+  .lcd {
+    width: 240px;
+    height: 240px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 50% 42%, #123528 0%, var(--face) 62%, #020504 100%);
+    border: 10px solid #0c1c16;
+    box-shadow: 0 0 0 1px #245445, inset 0 0 40px #000;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 28px;
+    flex: 0 0 auto;
+  }
+  .lcd strong {
+    font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+    font-size: 13px;
+    letter-spacing: 0.14em;
+  }
+  .lcd span { margin-top: 10px; font-size: 15px; color: var(--ink); }
+  .lcd.expired strong, .lcd.cancelled strong { color: var(--coral); }
+  button {
+    background: transparent;
+    color: var(--ink);
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    padding: 8px 14px;
+    margin: 0 8px 8px 0;
+    font: inherit;
+    cursor: pointer;
+  }
   button[aria-pressed="true"] { border-color: #8ddec0; color: #d9ffe9; }
-  ul { padding-left: 18px; color: var(--dim); }
+  ul.notes { padding-left: 18px; color: var(--dim); margin: 8px 0 0; }
+  section { margin-top: 56px; }
+  .lede { max-width: 68ch; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    gap: 12px;
+    margin-top: 18px;
+  }
+  article.card {
+    border: 1px solid var(--line);
+    border-radius: 14px;
+    padding: 14px 16px 16px;
+    background: #06110d;
+  }
+  article.card h3 {
+    margin: 0 0 6px;
+    font-size: 1.05rem;
+    font-weight: 500;
+  }
+  article.card p { margin: 0; font-size: 0.95rem; }
+  article.card code, table code {
+    font-family: ui-monospace, "SFMono-Regular", Menlo, monospace;
+    font-size: 0.82em;
+    color: var(--ink);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 16px;
+    font-size: 0.95rem;
+  }
+  th, td {
+    text-align: left;
+    vertical-align: top;
+    padding: 10px 8px;
+    border-top: 1px solid var(--line);
+  }
+  th {
+    font-family: ui-monospace, Menlo, monospace;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--dim);
+    font-weight: 500;
+  }
+  td.path { white-space: nowrap; }
+  .warn { color: var(--coral); }
+  footer {
+    margin-top: 56px;
+    padding-top: 16px;
+    border-top: 1px solid var(--line);
+    color: var(--dim);
+    font-size: 0.92rem;
+    max-width: 68ch;
+  }
 </style>
 </head>
 <body>
 <main>
-  <h1>Solana Gadget Kit</h1>
-  <p>240×240 round LCD for <a href="https://github.com/themusebook/solana-gadget-kit">github.com/themusebook/solana-gadget-kit</a>.
-  The on-device hardware wallet signs only after a physical confirm. Pocket Wallet stays the phone-approval path and cannot sign or submit.
-  Robotics motion is applied only for a matching Solana confirmation.</p>
-  <div class="stage">
-    <div id="lcd" class="lcd" role="img" aria-label="240 by 240 home">
-      <strong id="headline">HOME</strong>
-      <span id="detail">Solana gadget</span>
+  <header>
+    <p class="kicker">Solana Gadget Kit</p>
+    <h1>The premiere official open-source home of all Solana gadgets and hardware.</h1>
+    <p>Host programs you can run on a computer, the 240×240 round review surface, Solana OS 0.4.4 for the BP26 badge, and <a href="../../pocket-wallet/README.md">Pocket Wallet</a> in full. Source: <a href="https://github.com/themusebook/solana-gadget-kit">github.com/themusebook/solana-gadget-kit</a>.</p>
+    <nav class="jumps" aria-label="On this page">
+      <a href="#screen">Review surface</a>
+      <a href="#gadgets">Gadgets</a>
+      <a href="#pocket-wallet">Pocket Wallet</a>
+    </nav>
+  </header>
+
+  <section id="screen" aria-labelledby="screen-title">
+    <h2 id="screen-title">240×240 review surface</h2>
+    <p class="lede">The on-device hardware wallet signs only after a physical confirm. Pocket Wallet stays the phone-approval path and cannot sign or submit. Robotics motion is applied only for a matching Solana confirmation.</p>
+    <div class="stage">
+      <div id="lcd" class="lcd" role="img" aria-label="240 by 240 home">
+        <strong id="headline">HOME</strong>
+        <span id="detail">Solana gadget</span>
+      </div>
+      <div>
+        <button type="button" data-screen="home" aria-pressed="true">Home</button>
+        <button type="button" data-screen="review">Review</button>
+        <button type="button" data-screen="expired">Expired</button>
+        <button type="button" data-screen="cancelled">Cancelled</button>
+        <ul class="notes">
+          <li>Home is idle. No command is bound.</li>
+          <li>Review shows the exact payload before a signature exists.</li>
+          <li>Expired and cancelled refuse the robotics actuator.</li>
+        </ul>
+      </div>
     </div>
-    <div>
-      <button type="button" data-screen="home" aria-pressed="true">Home</button>
-      <button type="button" data-screen="review">Review</button>
-      <button type="button" data-screen="expired">Expired</button>
-      <button type="button" data-screen="cancelled">Cancelled</button>
-      <ul>
-        <li>Home is idle. No command is bound.</li>
-        <li>Review shows the exact payload before a signature exists.</li>
-        <li>Expired and cancelled refuse the robotics actuator.</li>
-      </ul>
+  </section>
+
+  <section id="gadgets" aria-labelledby="gadgets-title">
+    <h2 id="gadgets-title">Gadgets and hardware in this tree</h2>
+    <p class="lede">These programs do not flash a board, open a network connection, or read a provider key. Build them with <code>make -C solana test examples</code>.</p>
+    <div class="grid">
+      <article class="card">
+        <h3>Hardware wallet</h3>
+        <p><a href="../examples/hardware_wallet.c"><code>hardware_wallet</code></a> refuses to export the secret, shows the review line, and signs only after a physical confirm. The public demonstration seed is not a funded key.</p>
+      </article>
+      <article class="card">
+        <h3>LCD status</h3>
+        <p><a href="../examples/lcd_status.c"><code>lcd_status</code></a> drives home, review summary, expired, and cancelled on the 240×240 surface.</p>
+      </article>
+      <article class="card">
+        <h3>Robotics gate</h3>
+        <p><a href="../examples/robotics_gate.c"><code>robotics_gate</code></a> applies <code>servo:15</code> only for a matching confirmation. Mismatch, expiry, cancel, and a missing confirmation are refused.</p>
+      </article>
+      <article class="card">
+        <h3>Solana OS check</h3>
+        <p><a href="../examples/solana_os_check.c"><code>solana_os_check</code></a> checks the Solana OS 0.4.4 bundle against <code>SHA256SUMS</code>. Flash notes are in <a href="../docs/solana-os.md">solana/docs/solana-os.md</a>.</p>
+      </article>
+      <article class="card">
+        <h3>Portfolio preview</h3>
+        <p><a href="../examples/portfolio_preview.c"><code>portfolio_preview</code></a> renders a fixed SOL/USDC quote. It does not request a live quote or submit a trade.</p>
+      </article>
+      <article class="card">
+        <h3>Solana BP26 badge</h3>
+        <p>Prebuilt Solana OS 0.4.4 for the ESP32-C5 badge. The images and checksums live with the kit firmware bundle described in the Solana OS note.</p>
+      </article>
     </div>
-  </div>
+  </section>
+
+  <section id="pocket-wallet" aria-labelledby="pocket-title">
+    <h2 id="pocket-title">Pocket Wallet, included</h2>
+    <p class="lede">Phone approval for the round-screen gadget. A physical press on the ESP32 advances to phone review. That path cannot sign or submit. Signing stays in the installed Solana wallet. The running app is <a href="https://wallet.musebook.trade">wallet.musebook.trade</a>, with device setup at <a href="https://wallet.musebook.trade/pair">/pair</a>.</p>
+    <table>
+      <thead>
+        <tr><th>Path</th><th>What is included</th></tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/README.md">README.md</a></td>
+          <td>How to start the API and the dashboard, and which credentials stay on the server.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/ARCHITECTURE.md">ARCHITECTURE.md</a></td>
+          <td>Browser, loopback API, Muse companion, and the ESP32 confirmation core.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/BOM.md">BOM.md</a></td>
+          <td>Waveshare ESP32-S3-Touch-LCD-1.28 bill of materials. Shopping research only.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/web/index.html">web/</a></td>
+          <td>Vite dashboard and the <a href="../../pocket-wallet/web/pair/index.html">pair</a> page. <a href="../../pocket-wallet/vite.config.js">vite.config.js</a> proxies <code>/api</code> to port 8787.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/api/OPENAPI.md">api/</a></td>
+          <td>Express API: sessions, quotes, intents, providers, and Clawd handoff. Device tokens cannot submit.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/firmware/README.md">firmware/</a></td>
+          <td>Portable confirmation component and the 1.28-inch board pin map. A press moves review to phone. It does not sign.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/linux/README.md">linux/</a></td>
+          <td>Raspberry Pi companion. Read-only Muse commands. No wallet keys on the device.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/cloudflare/wrangler.jsonc">cloudflare/</a></td>
+          <td>Worker proxy in front of the Railway app for <code>wallet.musebook.trade</code>.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/scripts/muse-sdk.mjs">scripts/</a></td>
+          <td>SDK token check, firmware-config helper, secret scan, and the Linux SDK prepare step.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/docs/SECURITY.md">docs/</a></td>
+          <td>Security, pairing, voice, mobile, Muse SDK, Railway, brand, and verification.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/.github/workflows/check.yml">.github/</a></td>
+          <td>CI runs <code>npm run check</code> on Node 22 and Python 3.11.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/.vscode/settings.json">.vscode/</a></td>
+          <td>Editor setting that points CMake at the Pocket Wallet firmware component.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/Dockerfile">Dockerfile</a></td>
+          <td>Production image. Builds the dashboard, then serves it with the API on port 8787.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/package.json">package.json</a></td>
+          <td>App scripts. Lockfile is <a href="../../pocket-wallet/package-lock.json">package-lock.json</a>.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/LICENSE">LICENSE</a></td>
+          <td>Apache-2.0. Upstream Muse notices stay in place.</td>
+        </tr>
+        <tr>
+          <td class="path"><a href="../../pocket-wallet/.gitignore">.gitignore</a></td>
+          <td>Git ignore, plus <a href="../../pocket-wallet/.dockerignore">.dockerignore</a> and <a href="../../pocket-wallet/.railwayignore">.railwayignore</a>.</td>
+        </tr>
+      </tbody>
+    </table>
+    <p class="warn">No hardware purchase, deployment, wallet creation, or funded trade is claimed by this page.</p>
+  </section>
+
+  <footer>
+    <p>Apache-2.0. The hardware wallet signs only inside a bounded physical confirm. Pocket Wallet’s physical press never substitutes for wallet approval.</p>
+  </footer>
 </main>
 <script>
 const frames = {

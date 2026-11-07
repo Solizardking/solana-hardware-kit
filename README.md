@@ -1,8 +1,9 @@
 # Solana examples
 
-Credential-free host programs for the Solana Gadget Kit
-(`github.com/themusebook/solana-gadget-kit`). They do not flash a board, open
-a network connection, or read a provider key.
+The premiere official open-source home of all Solana gadgets and hardware is the
+[dashboard](dashboard/index.html), for the Solana Gadget Kit
+(`github.com/themusebook/solana-gadget-kit`). These host programs do not flash
+a board, open a network connection, or read a provider key.
 
 The ESP32 starting point is the Muse round-LCD gadget SDK. These programs are
 the part you can run on a computer:
@@ -15,8 +16,11 @@ the part you can run on a computer:
 | `solana_os_check` | Checks the Solana OS 0.4.4 bundle in `firmware/solana-os/0.4.4` against `SHA256SUMS`. |
 | `portfolio_preview` | Renders a fixed SOL/USDC quote preview. 10000000 lamports, 2500000 USDC base units, minimum out 980000. |
 
-Pocket Wallet in `../pocket-wallet` is a different wallet type. Its physical
-press moves the screen to phone review and cannot sign or submit.
+Pocket Wallet in [`../pocket-wallet`](../pocket-wallet/README.md) is included
+as the phone-approval gadget. Its physical press moves the screen to phone
+review and cannot sign or submit. The home lists every included surface: web,
+API, firmware, Linux companion, Cloudflare proxy, scripts, docs, CI, and the
+container files.
 
 ## Build and run
 
